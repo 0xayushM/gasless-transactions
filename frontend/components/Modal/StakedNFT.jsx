@@ -27,7 +27,9 @@ const StakedNft = ({ smartAccount }) => {
 
       const getStakedNFTs = async () => {
         try {
-          const tx = await stakingContract?.stakeTokenId(smartAccount?.address);
+          const tx = await stakingContract?.stakeTokenId(
+            smartAccount?.address
+          );
           setTokenId(tx.toNumber());
           console.log(tx.toNumber());
           const tx2 = await nftContract?.tokenURI(tokenId);

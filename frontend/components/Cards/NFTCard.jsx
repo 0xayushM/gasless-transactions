@@ -15,12 +15,14 @@ const NFTCard = ({ url, stake, tokenId, smartAccount }) => {
   const stakeNft = async () => {
     const txs = [];
     const nftContractInterface = new ethers.utils.Interface(NFTAbi.abi);
-    const stakingContractInterface = new ethers.utils.Interface(StakingAbi.abi);
+    const stakingContractInterface = new ethers.utils.Interface(
+      StakingAbi.abi
+    );
 
-    const data1 = nftContractInterface.encodeFunctionData("setApprovalForAll", [
-      StakingAbi.address,
-      true,
-    ]);
+    const data1 = nftContractInterface.encodeFunctionData(
+      "setApprovalForAll",
+      [StakingAbi.address, true]
+    );
     const tx1 = {
       to: NFTAbi.address,
       data: data1,
@@ -45,10 +47,10 @@ const NFTCard = ({ url, stake, tokenId, smartAccount }) => {
 
   const unStakeNft = async () => {
     const txs = [];
-    const withdrawApproval = new ethers.utils.Interface(NFTAbi.abi);
-    const unStake = new ethers.utils.Interface(StakingAbi.abi);
+    const nftContractInterface = new ethers.utils.Interface(NFTAbi.abi);
+    const stakingContractInterface = new ethers.utils.Interface(StakingAbi.abi);
 
-    const data1 = withdrawApproval.encodeFunctionData("setApprovalForAll", [
+    const data1 = nftContractInterface.encodeFunctionData("setApprovalForAll", [
       StakingAbi.address,
       false,
     ]);
@@ -57,7 +59,7 @@ const NFTCard = ({ url, stake, tokenId, smartAccount }) => {
       data: data1,
     };
     txs.push(tx1);
-    const data2 = unStake.encodeFunctionData("unStakeNFT", [nft.tokenID]);
+    const data2 = stakingContractInterface.encodeFunctionData("unStakeNFT", [nft.tokenID]);
     console.log(nft.tokenID);
     const tx2 = {
       to: StakingAbi.address,
